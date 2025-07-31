@@ -1,7 +1,7 @@
 
 # THIS IS AN ANVIL GLOBALLY KNOWN PRIVATE KEY!!
 setup-anvil:
-	forge script script/SetupAnvil.s.sol --rpc-url http://127.0.0.1:8545 --private-key ${ANVIL_KEY} --via-ir --broadcast -vvv
+	forge script script/SetupAnvil.s.sol --rpc-url http://127.0.0.1:8545 --via-ir --broadcast -vvv --account test
 
 anvil: 
 	anvil --dump-state marketplace-anvil.json

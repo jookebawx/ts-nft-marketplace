@@ -16,6 +16,71 @@ export const chainsToContracts: ContractsConfig = {
     },
 }
 
+// GraphQL Query and Types for NFT Marketplace
+export const GET_ACTIVE_LISTINGS_QUERY = `
+  query Nodes{
+  allItemListeds(first: 20, orderBy: [BLOCK_NUMBER_DESC, TX_INDEX_DESC]) {
+    nodes {
+      rindexerId
+      nftAddress
+      price
+      seller
+      contractAddress
+      txHash
+      tokenId
+    }
+  }
+  allItemCanceleds {
+    nodes {
+      nftAddress
+      tokenId
+    }
+  }
+  allItemBoughts {
+    nodes {
+      tokenId
+      nftAddress
+    }
+  }
+}
+`;
+
+// Types for the GraphQL response
+export interface ItemListed {
+    rindexerId: number;
+    tokenId: string;
+    contractAddress: string;
+    price: string;
+    nftAddress: string;
+    seller: string;
+    txHash: string;
+}
+
+export interface ItemBought {
+    tokenId: string;
+    nftAddress: string;
+}
+
+export interface ItemCanceled {
+    tokenId: string;
+    nftAddress: string;
+}
+
+export interface GraphQLResponse {
+    data: {
+        allItemListeds: {
+            nodes: ItemListed[];
+        };
+        allItemBoughts: {
+            nodes: ItemBought[];
+        };
+        allItemCanceleds: {
+            nodes: ItemCanceled[];
+        };
+    };
+    errors?: any[];
+}
+
 export const erc20Abi = [
     {
         type: "function",
